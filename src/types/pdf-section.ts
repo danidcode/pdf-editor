@@ -1,0 +1,1 @@
+export type PDFSectionType = "header" | "body" | "footer";
