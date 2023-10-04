@@ -36,7 +36,7 @@ const DraggableElementSelector = ({ activeElement, droppedElements, handleDelete
 
     if (!element) return null;
 
-    return <DraggableElement element={element} padding={element.section ? 12 : 6} handleDeleteElement={handleDeleteElement} />;
+    return <DraggableElement element={element} handleDeleteElement={handleDeleteElement} />;
 
 }
 

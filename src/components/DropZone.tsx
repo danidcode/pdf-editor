@@ -30,7 +30,7 @@ const DropZone = ({ sectionType, allowedElements, droppedElements, forbiddenDest
                     droppedElements.map((droppedElements) => {
 
                         return (
-                            <DraggableElement element={droppedElements} padding={12} key={droppedElements.id} handleDeleteElement={handleDeleteElement} />
+                            <DraggableElement element={droppedElements} key={droppedElements.id} handleDeleteElement={handleDeleteElement} />
                         )
                     })
                 }
@@ -41,7 +41,8 @@ const DropZone = ({ sectionType, allowedElements, droppedElements, forbiddenDest
     return (
 
 
-        <div className={`bg-white rounded flex justify-center px-16 lg:px-64 py-16 border-dashed border border-secondary ${isOver && 'opacity-40'}`} ref={setNodeRef}  >
+        <div className={`bg-white rounded flex justify-center px-16 lg:px-64 py-16 
+        border-dashed border border-secondary ${isOver && 'opacity-40'}`} ref={setNodeRef}  >
 
 
             <span>

@@ -9,7 +9,6 @@ import {
 import { useState } from 'react'
 import { IconContext } from 'react-icons'
 
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import 'react-hot-toast'
 import toast, { Toaster } from 'react-hot-toast'
 import { PDFSections } from '../constants/pdf-sections'
@@ -70,29 +69,25 @@ const MainContent = () => {
       <DndContext sensors={sensors}
         onDragEnd={handleDragEnd}
         onDragStart={handleDragStart} >
-        <SortableContext
-          items={droppedElements}
-          strategy={verticalListSortingStrategy}
-        >
-          <div className='w-full flex content-margin-right h-screen '>
+        <div className='w-full flex content-margin-right h-screen '>
 
-            <div className=' w-full py-6 px-6 mr-[150px] lg:mr-[350px]'>
-              <div className='xl:px-28 py-8 space-y-8 '>
-                {PDFSections.map((section, index) => (
-                  <PDFSection section={section} key={index} droppedElements={filterDroppedElements(section.type)} handleDeleteElement={handleDeleteElement} />
-                ))}
-              </div>
+          <div className=' w-full py-6 px-6 mr-[150px] lg:mr-[350px]'>
+            <div className='xl:px-28 py-8 space-y-8 '>
+              {PDFSections.map((section, index) => (
+                <PDFSection section={section} key={index} droppedElements={filterDroppedElements(section.type)} handleDeleteElement={handleDeleteElement} />
+              ))}
             </div>
-
-            <Sidebar />
-
           </div>
 
-          <DragOverlay>
-            {activeElement && (<DraggableElementSelector activeElement={activeElement} droppedElements={droppedElements}
-              handleDeleteElement={hasSection(activeElement) ? handleDeleteElement : undefined} />)}
-          </DragOverlay>
-        </SortableContext>
+          <Sidebar />
+
+        </div>
+
+        <DragOverlay>
+          {activeElement && (<DraggableElementSelector activeElement={activeElement} droppedElements={droppedElements}
+            handleDeleteElement={hasSection(activeElement) ? handleDeleteElement : undefined} />)}
+        </DragOverlay>
+
         <Toaster />
       </DndContext>
     </IconContext.Provider>
