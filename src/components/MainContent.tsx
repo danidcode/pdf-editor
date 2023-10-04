@@ -74,18 +74,18 @@ const MainContent = () => {
           items={droppedElements}
           strategy={verticalListSortingStrategy}
         >
-          <div className='w-full flex  mx-auto h-screen'>
+          <div className='w-full flex content-margin-right h-screen '>
 
-            <div className='w-3/4 py-6 px-6'>
-              <div className='px-28 py-8 space-y-8 '>
+            <div className=' w-full py-6 px-6 mr-[150px] lg:mr-[350px]'>
+              <div className='xl:px-28 py-8 space-y-8 '>
                 {PDFSections.map((section, index) => (
                   <PDFSection section={section} key={index} droppedElements={filterDroppedElements(section.type)} handleDeleteElement={handleDeleteElement} />
                 ))}
               </div>
             </div>
-            <div className='w-1/4 py-4 px-6 '>
-              <Sidebar />
-            </div>
+
+            <Sidebar />
+
           </div>
 
           <DragOverlay>

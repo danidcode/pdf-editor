@@ -41,7 +41,7 @@ const DropZone = ({ sectionType, allowedElements, droppedElements, forbiddenDest
     return (
 
 
-        <div className={`bg-white rounded flex justify-center px-64 py-16 border-dashed border border-secondary ${isOver && 'opacity-40'}`} ref={setNodeRef}  >
+        <div className={`bg-white rounded flex justify-center px-16 lg:px-64 py-16 border-dashed border border-secondary ${isOver && 'opacity-40'}`} ref={setNodeRef}  >
 
 
             <span>
