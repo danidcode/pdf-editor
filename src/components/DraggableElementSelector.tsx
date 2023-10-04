@@ -1,13 +1,12 @@
-import { Active } from '@dnd-kit/core';
+import { Active, UniqueIdentifier } from '@dnd-kit/core';
 import { draggableElements } from '../constants/draggable-elements';
-
-import DraggableElement from './DraggableElement';
 import { DraggableElement as DraggableElementProps } from '../interfaces/draggable-element';
+import DraggableElement from './DraggableElement';
 
 type Props = {
     activeElement: Active
     droppedElements: DraggableElementProps[]
-
+    handleDeleteElement?: (id: UniqueIdentifier) => void
 }
 
 const findActiveElement = (
@@ -31,13 +30,13 @@ const findActiveElement = (
     return element;
 };
 
-const DraggableElementSelector = ({ activeElement, droppedElements }: Props) => {
+const DraggableElementSelector = ({ activeElement, droppedElements, handleDeleteElement }: Props) => {
 
     const element = findActiveElement(activeElement, droppedElements);
 
     if (!element) return null;
 
-    return <DraggableElement element={element} padding={element.section ? 12 : 6} />;
+    return <DraggableElement element={element} padding={element.section ? 12 : 6} handleDeleteElement={handleDeleteElement} />;
 
 }
 

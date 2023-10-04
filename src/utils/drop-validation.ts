@@ -3,6 +3,7 @@ import {
     Over
   } from '@dnd-kit/core'
 import { DraggableElement } from '../interfaces/draggable-element'
+import { hasSection } from './has-section'
 
 export const validateDrop = (over: Over | null, active: Active, droppedElements: DraggableElement[]) => {
 
@@ -15,7 +16,7 @@ export const validateDrop = (over: Over | null, active: Active, droppedElements:
 }
 
 const validateReorderedElements = (over: Over | null, active: Active) => {
-  return active?.data.current?.section 
+  return hasSection(active)
   && (over?.data?.current?.forbiddenDestinations && over?.data?.current?.forbiddenDestinations.includes(active?.data.current?.section))
 }
 

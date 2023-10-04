@@ -1,6 +1,7 @@
 import {
     Active,
-    Over
+    Over,
+    UniqueIdentifier
 } from '@dnd-kit/core';
 import { nanoid } from 'nanoid/non-secure';
 import { useState } from 'react';
@@ -40,5 +41,13 @@ export function useDroppedElements() {
         });
     };
 
-    return { droppedElements, addDroppedElement };
+    const deleteDroppedElement = (id: UniqueIdentifier) => {
+
+        const updatedDroppedElements = droppedElements.filter((element) => element.id !== id)
+        toast.success(`Element deleted successfully!`, {
+            position: 'top-center',
+        });
+        setDroppedElements(updatedDroppedElements);
+    }
+    return { droppedElements, addDroppedElement, deleteDroppedElement };
 }

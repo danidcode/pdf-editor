@@ -4,14 +4,16 @@ import { DraggableElementType } from "../types/draggable-element";
 import { PDFSectionType } from "../types/pdf-section";
 import DraggableElement from "./DraggableElement";
 import { DraggableElement as DraggableElementProps } from "../interfaces/draggable-element";
+import { UniqueIdentifier } from "@dnd-kit/core";
 
 type Props = {
     sectionType: PDFSectionType
     allowedElements: DraggableElementType[]
     droppedElements: DraggableElementProps[]
     forbiddenDestinations?: PDFSectionType[]
+    handleDeleteElement: (id: UniqueIdentifier) => void
 }
-const DropZone = ({ sectionType, allowedElements, droppedElements, forbiddenDestinations }: Props) => {
+const DropZone = ({ sectionType, allowedElements, droppedElements, forbiddenDestinations, handleDeleteElement }: Props) => {
 
     const { setNodeRef, isOver } = useDroppable({
         id: sectionType,
@@ -23,12 +25,12 @@ const DropZone = ({ sectionType, allowedElements, droppedElements, forbiddenDest
 
     if (droppedElements.length) {
         return (
-            <div className={`space-y-2 ${isOver && 'opacity-40'}`} ref={setNodeRef} >
+            <div className={`space-y-2  ${isOver && 'opacity-40'} `} ref={setNodeRef} >
                 {
                     droppedElements.map((droppedElements) => {
 
                         return (
-                            <DraggableElement element={droppedElements} padding={12} key={droppedElements.id} showCloseButton={true} />
+                            <DraggableElement element={droppedElements} padding={12} key={droppedElements.id} handleDeleteElement={handleDeleteElement} />
                         )
                     })
                 }

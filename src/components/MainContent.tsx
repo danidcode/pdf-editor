@@ -1,15 +1,15 @@
 import {
   Active,
   DndContext, DragEndEvent, DragOverlay, DragStartEvent,
-  KeyboardSensor,
   PointerSensor,
+  UniqueIdentifier,
   useSensor,
   useSensors
 } from '@dnd-kit/core'
 import { useState } from 'react'
 import { IconContext } from 'react-icons'
 
-import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import 'react-hot-toast'
 import toast, { Toaster } from 'react-hot-toast'
 import { PDFSections } from '../constants/pdf-sections'
@@ -20,18 +20,20 @@ import Sidebar from './Sidebar'
 
 import { useDroppedElements } from '../hooks/useDroppedElements'
 import { validateAllowedElements, validateDrop } from '../utils/drop-validation'
+import { hasSection } from '../utils/has-section'
 
 
 const MainContent = () => {
   const [activeElement, setActiveElement] = useState<Active | null>(null);
-  const { droppedElements, addDroppedElement } = useDroppedElements();
+  const { droppedElements, addDroppedElement, deleteDroppedElement } = useDroppedElements();
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 1,
+      },
     })
-  );
+  )
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over, } = event;
 
@@ -40,7 +42,7 @@ const MainContent = () => {
       if (validateAllowedElements(over, active)) {
         addDroppedElement(active, over);
       } else {
-        toast.error(`You can not ${active?.data?.current?.section ? 'move' : 'add'} this element here`, {
+        toast.error(`You can not ${hasSection(active) ? 'move' : 'add'} this element here`, {
           position: 'top-center'
         });
       }
@@ -57,6 +59,10 @@ const MainContent = () => {
     return droppedElementsFiltered
   }
 
+  const handleDeleteElement = (id: UniqueIdentifier) => {
+
+    deleteDroppedElement(id)
+  }
 
 
   return (
@@ -73,7 +79,7 @@ const MainContent = () => {
             <div className='w-3/4 py-6 px-6'>
               <div className='px-28 py-8 space-y-8 '>
                 {PDFSections.map((section, index) => (
-                  <PDFSection section={section} key={index} droppedElements={filterDroppedElements(section.type)} />
+                  <PDFSection section={section} key={index} droppedElements={filterDroppedElements(section.type)} handleDeleteElement={handleDeleteElement} />
                 ))}
               </div>
             </div>
@@ -83,7 +89,8 @@ const MainContent = () => {
           </div>
 
           <DragOverlay>
-            {activeElement ? <DraggableElementSelector activeElement={activeElement} droppedElements={droppedElements} /> : null}
+            {activeElement && (<DraggableElementSelector activeElement={activeElement} droppedElements={droppedElements}
+              handleDeleteElement={hasSection(activeElement) ? handleDeleteElement : undefined} />)}
           </DragOverlay>
         </SortableContext>
         <Toaster />
