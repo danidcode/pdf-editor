@@ -1,0 +1,1 @@
+export type DraggableItemType = "image" | "text" | "table";

@@ -1,36 +1,36 @@
 import { useDroppable } from "@dnd-kit/core";
 
-import { DraggableElementType } from "../types/draggable-element";
+import { DraggableItemType } from "../types/draggable-item";
 import { PDFSectionType } from "../types/pdf-section";
-import DraggableElement from "./DraggableElement";
-import { DraggableElement as DraggableElementProps } from "../interfaces/draggable-element";
+import DraggableItem from "./DraggableItem";
+import { DraggableItem as DraggableItemProps } from "../interfaces/draggable-item";
 import { UniqueIdentifier } from "@dnd-kit/core";
 
 type Props = {
     sectionType: PDFSectionType
-    allowedElements: DraggableElementType[]
-    droppedElements: DraggableElementProps[]
+    allowedItems: DraggableItemType[]
+    droppedItems: DraggableItemProps[]
     forbiddenDestinations?: PDFSectionType[]
-    handleDeleteElement: (id: UniqueIdentifier) => void
+    handleDeleteItem: (id: UniqueIdentifier) => void
 }
-const DropZone = ({ sectionType, allowedElements, droppedElements, forbiddenDestinations, handleDeleteElement }: Props) => {
+const DropZone = ({ sectionType, allowedItems, droppedItems, forbiddenDestinations, handleDeleteItem }: Props) => {
 
     const { setNodeRef, isOver } = useDroppable({
         id: sectionType,
         data: {
-            accepts: allowedElements,
+            accepts: allowedItems,
             ...(forbiddenDestinations !== undefined ? { forbiddenDestinations: forbiddenDestinations } : {})
         },
     });
 
-    if (droppedElements.length) {
+    if (droppedItems.length) {
         return (
             <div className={`space-y-2  ${isOver && 'opacity-40'} `} ref={setNodeRef} >
                 {
-                    droppedElements.map((droppedElements) => {
+                    droppedItems.map((droppedItems) => {
 
                         return (
-                            <DraggableElement element={droppedElements} key={droppedElements.id} handleDeleteElement={handleDeleteElement} />
+                            <DraggableItem item={droppedItems} key={droppedItems.id} handleDeleteItem={handleDeleteItem} />
                         )
                     })
                 }
@@ -46,7 +46,7 @@ const DropZone = ({ sectionType, allowedElements, droppedElements, forbiddenDest
 
 
             <span>
-                Drag and drop an element within this area.
+                Drag and drop an item within this area.
             </span>
 
 

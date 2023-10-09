@@ -4,20 +4,20 @@ export const PDFSections: PDFSection[] = [
     {
         type: 'header',
         title: 'Header',
-        allowedElements: ['image'],
+        allowedItems: ['image'],
 
     },
     {
         type: 'body',
         title: 'Body',
-        allowedElements: ['text', 'image', 'table'],
+        allowedItems: ['text', 'image', 'table'],
         forbiddenDestinations: ['footer']
 
     },
     {
         type: 'footer',
         title: 'Footer',
-        allowedElements: ['text'],
+        allowedItems: ['text'],
         forbiddenDestinations: ['body']
     },
 

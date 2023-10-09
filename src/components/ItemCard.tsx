@@ -7,7 +7,7 @@ type Props = {
 
 }
 
-const ElementCard = ({ icon, title }: Props) => {
+const ItemCard = ({ icon, title }: Props) => {
     return (
         <div className='flex flex-col space-y-1 ' >
             {icon}
@@ -17,4 +17,4 @@ const ElementCard = ({ icon, title }: Props) => {
     )
 }
 
-export default ElementCard
+export default ItemCard

@@ -1,15 +1,15 @@
 import { UniqueIdentifier, useDraggable } from "@dnd-kit/core";
 import { AiOutlineDelete } from 'react-icons/ai';
-import { DraggableElement as DraggableElementProps } from '../interfaces/draggable-element';
+import { DraggableItem as DraggableItemProps } from '../interfaces/draggable-item';
 import IconButton from './IconButton';
 
 type Props = {
-    element: DraggableElementProps
-    handleDeleteElement?: (id: UniqueIdentifier) => void
+    item: DraggableItemProps
+    handleDeleteItem?: (id: UniqueIdentifier) => void
 }
-const DraggableElement = ({ element, handleDeleteElement }: Props) => {
+const DraggableItem = ({ item, handleDeleteItem }: Props) => {
 
-    const { type, title, icon, id, section } = element
+    const { type, title, icon, id, section } = item
 
     const { attributes, listeners, setNodeRef, isDragging, } = useDraggable({
         id: id,
@@ -23,14 +23,14 @@ const DraggableElement = ({ element, handleDeleteElement }: Props) => {
 
 
     const handleClick = () => {
-        if (!handleDeleteElement) return null
-        handleDeleteElement(element.id)
+        if (!handleDeleteItem) return null
+        handleDeleteItem(item.id)
     }
 
     return (
-        <div className={`flex flex-col items-end ${element.section && 'p-6'}  bg-white shadow-sm  rounded cursor-grab 
+        <div className={`flex flex-col items-end ${item.section && 'p-6'}  bg-white shadow-sm  rounded cursor-grab 
         ${isDragging && 'opacity-40'}  `} ref={setNodeRef} {...attributes} {...listeners} key={id} >
-            {handleDeleteElement && (
+            {handleDeleteItem && (
                 <IconButton icon={<AiOutlineDelete size={20} />} onClick={handleClick} position='absolute' />)}
             <div className={`bg-white p-6 w-full `} >
 
@@ -45,4 +45,4 @@ const DraggableElement = ({ element, handleDeleteElement }: Props) => {
     )
 }
 
-export default DraggableElement
+export default DraggableItem

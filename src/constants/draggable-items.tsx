@@ -1,10 +1,10 @@
+import { nanoid } from 'nanoid';
 import { BiImage } from 'react-icons/bi';
 import { ImTable } from 'react-icons/im';
 import { PiTextAlignJustifyBold } from 'react-icons/pi';
-import { DraggableElement } from '../interfaces/draggable-element';
-import { nanoid } from 'nanoid';
+import { DraggableItem } from '../interfaces/draggable-item';
 
-export const draggableElements: DraggableElement[] = [
+export const draggableItems: DraggableItem[] = [
     {
         id: nanoid(11),
         type: 'text',

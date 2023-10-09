@@ -13,18 +13,19 @@ import 'react-hot-toast'
 import toast, { Toaster } from 'react-hot-toast'
 import { PDFSections } from '../constants/pdf-sections'
 import { PDFSectionType } from '../types/pdf-section'
-import DraggableElementSelector from './DraggableElementSelector'
+import DraggableItemSelector from './DraggableItemSelector'
 import PDFSection from './PDFSection'
 import Sidebar from './Sidebar'
 
-import { useDroppedElements } from '../hooks/useDroppedElements'
-import { validateAllowedElements, validateDrop } from '../utils/drop-validation'
+
+import { validateAllowedItems as validateAllowedItems, validateDrop } from '../utils/drop-validation'
 import { hasSection } from '../utils/has-section'
+import { useDroppedItems } from '../hooks/useDroppedItems'
 
 
 const MainContent = () => {
-  const [activeElement, setActiveElement] = useState<Active | null>(null);
-  const { droppedElements, addDroppedElement, deleteDroppedElement } = useDroppedElements();
+  const [activeItem, setactiveItem] = useState<Active | null>(null);
+  const { droppedItems, addDroppedItems, deleteDroppedItems } = useDroppedItems();
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -37,11 +38,11 @@ const MainContent = () => {
     const { active, over, } = event;
 
 
-    if (validateDrop(over, active, droppedElements)) {
-      if (validateAllowedElements(over, active)) {
-        addDroppedElement(active, over);
+    if (validateDrop(over, active, droppedItems)) {
+      if (validateAllowedItems(over, active)) {
+        addDroppedItems(active, over);
       } else {
-        toast.error(`You can not ${hasSection(active) ? 'move' : 'add'} this element here`, {
+        toast.error(`You can not ${hasSection(active) ? 'move' : 'add'} this item here`, {
           position: 'top-center'
         });
       }
@@ -50,17 +51,17 @@ const MainContent = () => {
 
   const handleDragStart = ({ active }: DragStartEvent) => {
 
-    setActiveElement(active)
+    setactiveItem(active)
   }
 
-  const filterDroppedElements = (type: PDFSectionType) => {
-    const droppedElementsFiltered = droppedElements.filter((element) => element.section === type)
-    return droppedElementsFiltered
+  const filterdroppedItems = (type: PDFSectionType) => {
+    const droppedItemsFiltered = droppedItems.filter((item) => item.section === type)
+    return droppedItemsFiltered
   }
 
-  const handleDeleteElement = (id: UniqueIdentifier) => {
+  const handleDeleteItem = (id: UniqueIdentifier) => {
 
-    deleteDroppedElement(id)
+    deleteDroppedItems(id)
   }
 
 
@@ -74,7 +75,7 @@ const MainContent = () => {
           <div className=' w-full py-6 px-6 mr-[150px] lg:mr-[350px]'>
             <div className='xl:px-28 py-8 space-y-8 '>
               {PDFSections.map((section, index) => (
-                <PDFSection section={section} key={index} droppedElements={filterDroppedElements(section.type)} handleDeleteElement={handleDeleteElement} />
+                <PDFSection section={section} key={index} droppedItems={filterdroppedItems(section.type)} handleDeleteItem={handleDeleteItem} />
               ))}
             </div>
           </div>
@@ -84,8 +85,8 @@ const MainContent = () => {
         </div>
 
         <DragOverlay>
-          {activeElement && (<DraggableElementSelector activeElement={activeElement} droppedElements={droppedElements}
-            handleDeleteElement={hasSection(activeElement) ? handleDeleteElement : undefined} />)}
+          {activeItem && (<DraggableItemSelector activeItem={activeItem} droppedItems={droppedItems}
+            handleDeleteItem={hasSection(activeItem) ? handleDeleteItem : undefined} />)}
         </DragOverlay>
 
         <Toaster />

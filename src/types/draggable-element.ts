@@ -1,1 +1,0 @@
-export type DraggableElementType = "image" | "text" | "table";

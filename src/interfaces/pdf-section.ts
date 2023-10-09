@@ -1,9 +1,9 @@
-import { DraggableElementType } from "../types/draggable-element";
+import { DraggableItemType } from "../types/draggable-item";
 import { PDFSectionType } from "../types/pdf-section";
 
 export interface PDFSection  {
     type: PDFSectionType
     title: string
-    allowedElements: DraggableElementType[]
+    allowedItems: DraggableItemType[]
     forbiddenDestinations?: PDFSectionType[]
 }
