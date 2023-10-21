@@ -24,7 +24,7 @@ import { useDroppedItems } from '../hooks/useDroppedItems'
 
 
 const MainContent = () => {
-  const [activeItem, setactiveItem] = useState<Active | null>(null);
+  const [activeItem, setActiveItem] = useState<Active | null>(null);
   const { droppedItems, addDroppedItems, deleteDroppedItems } = useDroppedItems();
 
   const sensors = useSensors(
@@ -51,7 +51,7 @@ const MainContent = () => {
 
   const handleDragStart = ({ active }: DragStartEvent) => {
 
-    setactiveItem(active)
+    setActiveItem(active)
   }
 
   const filterdroppedItems = (type: PDFSectionType) => {
