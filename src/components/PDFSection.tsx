@@ -1,11 +1,11 @@
-import { DraggableItem } from "../interfaces/draggable-item"
+import { Item } from "../interfaces/item"
 import { PDFSection as PDFSectionProps } from "../interfaces/pdf-section"
 import DropZone from "./DropZone"
 import { UniqueIdentifier } from "@dnd-kit/core";
 
 type Props = {
     section: PDFSectionProps
-    droppedItems: DraggableItem[]
+    droppedItems: Item[]
     handleDeleteItem: (id: UniqueIdentifier) => void
 }
 

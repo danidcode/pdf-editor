@@ -1,5 +1,7 @@
 import { draggableItems } from '../constants/draggable-items';
 import DraggableItem from './DraggableItem';
+import SortableItem from './SortableItem';
+
 
 const Sidebar = () => {
 
@@ -10,7 +12,7 @@ const Sidebar = () => {
             <div className='flex justify-between flex-col lg:flex-row '>
 
                 {draggableItems.map((item) => (
-                    <DraggableItem item={item} key={item.id} />
+                    <SortableItem item={item} key={item.id} />
                 ))}
 
             </div>

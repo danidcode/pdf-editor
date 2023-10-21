@@ -1,5 +1,5 @@
-import { DraggableItem } from "../interfaces/draggable-item";
+import { Item } from "../interfaces/item";
 
-export const isSortable = (item: DraggableItem) => {
+export const isSortable = (item: Item) => {
     return item.section
 }
